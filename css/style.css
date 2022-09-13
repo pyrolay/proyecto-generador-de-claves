@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    cursor: default;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url(../images/pawel-czerwinski-2PN18U8CKi0-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.password-container, .form-container {
+    background-color: white;
+    max-width: 40%;
+    width: 100%;
+    margin: 20px;
+    padding: 16px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
+}
+
+.password-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.password-container .input-password {
+    max-width: 80%;
+    font-size: 2rem;
+    border: none;
+    cursor: text;
+    letter-spacing: 1px;
+}
+
+.password-container .input-password:focus-visible {
+    outline: none;
+}
+
+.password-container .icon {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 20%;
+}
+
+.password-container .icon i {
+    font-size: 2rem;
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.form-container h2 {
+    color: #FF7171;
+    font-size: 2rem;
+}
+
+.form-container form {
+    display: flex;
+    margin-top: 8px;
+    justify-content: space-evenly;
+}
+
+.form-container form section {
+    padding: 20px;
+}
+
+.form-container h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #FF7171;
+}
+
+.form-container label {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin: 3px 0;
+}
+
+.form-container label span {
+    margin: 0 5px;
+}
