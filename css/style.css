@@ -36,7 +36,7 @@ body {
     height: 80px;
 }
 
-.password-container .input-password {
+.password-container .password {
     max-width: 80%;
     font-size: 2rem;
     border: none;
@@ -44,7 +44,7 @@ body {
     letter-spacing: 1px;
 }
 
-.password-container .input-password:focus-visible {
+.password-container .password:focus-visible {
     outline: none;
 }
 
