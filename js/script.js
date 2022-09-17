@@ -6,7 +6,7 @@ const arrLettersLowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "
 const arrLettersUppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 const arrNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const arrSymbols = ["~", '"', "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "=", "{", "[", "}", "]", "|", ":", ";", "<", ",", ">", ".", "?", "/"]
-
+const arrOfArrays = [arrLettersUppercase, arrLettersLowercase, arrNumbers, arrSymbols]
 
 // VARIABLES
 const $arrInputLength = [$("#twelve-characters"), $("#nine-characters"), $("#six-characters")]
@@ -119,6 +119,43 @@ const validatePassword = () => {
     }
     return password
 }
+
+const cutPassword = () => {
+    let cutPassword = validatePassword()
+    if (cutPassword.length > $inputLength) {
+        for (i = cutPassword.length; i > $inputLength; i--) {
+            const index = parseInt(Math.random() * cutPassword.length)
+            cutPassword.splice(index, 1)
+        }
+    }
+    return cutPassword
+}
+cutPassword()
+
+
+const validateCutPassword = () => {
+    let contra = cutPassword()
+    for (const a of contra) {
+        if ($inputCharacters.includes($uppercase) && contra[a].some(item => !arrLettersUppercase.includes(item))) {
+            cutPassword()
+            validateCutPassword()
+        } 
+        if ($inputCharacters.includes($lowercase) && contra[a].some(item => !arrLettersLowercase.includes(item))) {
+            cutPassword()
+            validateCutPassword()
+        } 
+        if ($inputCharacters.includes($numbers) && contra[a].some(item => !arrNumbers.includes(item))) {
+            cutPassword()
+            validateCutPassword()
+        } 
+        if ($inputCharacters.includes($symbols) && contra[a].some(item => !arrSymbols.includes(item))) {
+            cutPassword()
+            validateCutPassword()
+        }
+    }
+    return contra
+}
+
 
 // EVENTS
 
