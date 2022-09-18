@@ -9,69 +9,71 @@
     <title>Generador de claves</title>
 </head>
 <body>
-    <section class="password-container">
-        <!-- <input type="text" value="hsdgfjjhfg" id="input-password" class="input-password"> -->
-        <p class="password">dbfmnf</p>
-        <div class="icon">
-            <i class="fa-regular fa-copy"></i>
-            <i class="fa-solid fa-arrows-rotate"></i>
-        </div>
-    </section>
-
-    <section class="form-container">
-        <h2>Personalice su contraseña</h2>
-        <form action="GET">
-            <section>
-                <h3>Longitud</h3>
-                <label for="twelve-characters">
-                    <input type="radio" id="twelve-characters" class="characters-length" name="length" checked>
-                    <span>12 carácteres</span>
-                </label>
-                <label for="nine-characters">
-                    <input type="radio" id="nine-characters" class="characters-length" name="length">
-                    <span>9 carácteres</span>
-                </label>
-                <label for="six-characters">
-                    <input type="radio" id="six-characters" class="characters-length" name="length">
-                    <span>6 carácteres</span>
-                </label>
-            </section>
-            <section>
-                <h3>Reglas</h3>
-                <label for="only-letters">
-                    <input type="radio" id="only-letters" name="rules" checked>
-                    <span>Solo letras</span>
-                </label>
-                <label for="only-numbers">
-                    <input type="radio" id="only-numbers" name="rules">
-                    <span>Solo números</span>
-                </label>
-                <label for="all-characters">
-                    <input type="radio" id="all-characters" name="rules">
-                    <span>Todos los carácteres</span>
-                </label>
-            </section>
-            <section>
-                <h3>Carácteres</h3>
-                <label for="uppercase">
-                    <input type="checkbox" id="uppercase" name="characters" checked>
-                    <span>Mayúsculas</span>
-                </label>
-                <label for="lowercase">
-                    <input type="checkbox" id="lowercase" name="characters" checked>
-                    <span>Minúsculas</span>
-                </label>
-                <label for="numbers">
-                    <input type="checkbox" id="numbers" name="characters" disabled>
-                    <span>Números</span>
-                </label>
-                <label for="symbols">
-                    <input type="checkbox" id="symbols" name="characters" disabled>
-                    <span>Símbolos</span>
-                </label>
-            </section>
-        </form>
-    </section>
+    <div class="main-container">
+        <section class="password-container">
+            <p class="password"></p>
+            <div class="icon">
+                <i class="fa-regular fa-copy" id="copy-btn"></i>
+                <i class="fa-solid fa-arrows-rotate" id="refresh-btn"></i>
+            </div>
+        </section>
+    
+        <section class="form-container">
+            <h2>Personalice su contraseña</h2>
+            <form action="GET">
+                <section>
+                    <h3>Longitud</h3>
+                    <label for="sixteen-characters">
+                        <input type="radio" id="sixteen-characters" class="characters-length" name="length" checked>
+                        <span>16 carácteres</span>
+                    </label>
+                    <label for="twelve-characters">
+                        <input type="radio" id="twelve-characters" class="characters-length" name="length">
+                        <span>12 carácteres</span>
+                    </label>
+                    <label for="eight-characters">
+                        <input type="radio" id="eight-characters" class="characters-length" name="length">
+                        <span>8 carácteres</span>
+                    </label>
+                </section>
+                <section>
+                    <h3>Reglas</h3>
+                    <label for="only-letters">
+                        <input type="radio" id="only-letters" name="rules" checked>
+                        <span>Solo letras</span>
+                    </label>
+                    <label for="only-numbers">
+                        <input type="radio" id="only-numbers" name="rules">
+                        <span>Solo números</span>
+                    </label>
+                    <label for="all-characters">
+                        <input type="radio" id="all-characters" name="rules">
+                        <span>Todos los carácteres</span>
+                    </label>
+                </section>
+                <section>
+                    <h3>Carácteres</h3>
+                    <label for="uppercase">
+                        <input type="checkbox" id="uppercase" name="characters" checked>
+                        <span>Mayúsculas</span>
+                    </label>
+                    <label for="lowercase">
+                        <input type="checkbox" id="lowercase" name="characters" checked>
+                        <span>Minúsculas</span>
+                    </label>
+                    <label for="numbers">
+                        <input type="checkbox" id="numbers" name="characters" disabled>
+                        <span>Números</span>
+                    </label>
+                    <label for="symbols">
+                        <input type="checkbox" id="symbols" name="characters" disabled>
+                        <span>Símbolos</span>
+                    </label>
+                </section>
+            </form>
+            <button class="generate-btn">Generar</button>
+        </section>
+    </div>
 
     <script src="js/script.js"></script>
 </body>

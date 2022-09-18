@@ -6,29 +6,28 @@ const arrLettersLowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "
 const arrLettersUppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 const arrNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const arrSymbols = ["~", '"', "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "=", "{", "[", "}", "]", "|", ":", ";", "<", ",", ">", ".", "?", "/"]
-const arrOfArrays = [arrLettersUppercase, arrLettersLowercase, arrNumbers, arrSymbols]
 
 // VARIABLES
-const $arrInputLength = [$("#twelve-characters"), $("#nine-characters"), $("#six-characters")]
+const $arrInputLength = [$("#sixteen-characters"), $("#twelve-characters"), $("#eight-characters")]
 const $arrInputRules = [$("#only-letters"), $("#only-numbers"), $("#all-characters")]
-const $arrInputCharacters = [$("#uppercase"), $("#lowercase"), $("#numbers"), $("#symbols")]
 
 const $uppercase = $("#uppercase")
 const $lowercase = $("#lowercase")
 const $numbers = $("#numbers")
 const $symbols = $("#symbols")
 
+const $btn = [$(".generate-btn"), $("#refresh-btn")]
+const $copyBtn = $("#copy-btn")
+
 
 // FUNCTIONS
-
-let $inputLength
+let inputLength
 const lengthFunction = () => {
-    if ($("#twelve-characters").checked) $inputLength = 12
-    else if ($("#nine-characters").checked) $inputLength = 9
-    else if ($("#six-characters").checked) $inputLength = 6
+    if ($("#sixteen-characters").checked) inputLength = 16
+    else if ($("#twelve-characters").checked) inputLength = 12
+    else if ($("#eight-characters").checked) inputLength = 8
 }
 lengthFunction()
-
 
 const rulesFunction = () => {
     if ($("#only-letters").checked) {
@@ -62,100 +61,54 @@ const rulesFunction = () => {
 }
 rulesFunction()
 
-let $inputCharacters
-const charactersFunction = () => {
-    let characters = []
-    for (let i = 0; i < $arrInputCharacters.length; i++) {
-        if ($arrInputCharacters[i].checked) {
-            characters.push($arrInputCharacters[i])
-        }
-    }
-    return $inputCharacters = characters
-}
-charactersFunction()
-
 const randomPassword = () => {
     let password = []
-    for (i = 0; i < 100; i++) {
-        const number = parseInt(Math.random() * 4)
-        if (number === 0) {
-            const letter = Math.floor(Math.random() * arrLettersUppercase.length)
-            password.push(arrLettersUppercase[letter])
-        } else if (number === 1) {
-            const letter = Math.floor(Math.random() * arrLettersLowercase.length)
-            password.push(arrLettersLowercase[letter])
-        } else if (number === 2) {
+    for (i = 0; i < 25; i++) {
+            const uppercase = Math.floor(Math.random() * arrLettersUppercase.length)
+            password.push(arrLettersUppercase[uppercase])
+            const lowercase = Math.floor(Math.random() * arrLettersLowercase.length)
+            password.push(arrLettersLowercase[lowercase])
             const digit = Math.floor(Math.random() * arrNumbers.length)
             password.push(arrNumbers[digit])
-        } else if (number === 3) {
             const symbol = Math.floor(Math.random() * arrSymbols.length)
             password.push(arrSymbols[symbol])
-        }
     }
     return password
 }
 
-const validatePassword = () => {
-    let password = randomPassword()
-    if (!$inputCharacters.includes($uppercase)) {
-        password = password.filter((item) => {
-            return !arrLettersUppercase.includes(item)
+const arrOfData = [arrLettersUppercase, arrLettersLowercase, arrNumbers, arrSymbols]
+const $arrInputCharacters = [$("#uppercase"), $("#lowercase"), $("#numbers"), $("#symbols")]
+
+const validatePassword = (checked, array) => {
+    let filterPassword = randomPassword()
+    for (const index in $arrInputCharacters)
+    if (!checked[index].checked) {
+        filterPassword = filterPassword.filter((item) => {
+            return !array[index].includes(item)
         })
     }
-    if (!$inputCharacters.includes($lowercase)) {
-        password = password.filter((item) => {
-            return !arrLettersLowercase.includes(item)
-        })
-    }
-    if (!$inputCharacters.includes($numbers)) {
-        password = password.filter((item) => {
-            return !arrNumbers.includes(item)
-        })
-    }
-    if (!$inputCharacters.includes($symbols)) {
-        password = password.filter((item) => {
-            return !arrSymbols.includes(item)
-        })
-    }
-    return password
+    return password = filterPassword
 }
 
+let password
 const cutPassword = () => {
-    let cutPassword = validatePassword()
-    if (cutPassword.length > $inputLength) {
-        for (i = cutPassword.length; i > $inputLength; i--) {
-            const index = parseInt(Math.random() * cutPassword.length)
-            cutPassword.splice(index, 1)
-        }
-    }
-    return cutPassword
-}
-cutPassword()
-
-
-const validateCutPassword = () => {
-    let contra = cutPassword()
-    for (const a of contra) {
-        if ($inputCharacters.includes($uppercase) && contra[a].some(item => !arrLettersUppercase.includes(item))) {
-            cutPassword()
-            validateCutPassword()
-        } 
-        if ($inputCharacters.includes($lowercase) && contra[a].some(item => !arrLettersLowercase.includes(item))) {
-            cutPassword()
-            validateCutPassword()
-        } 
-        if ($inputCharacters.includes($numbers) && contra[a].some(item => !arrNumbers.includes(item))) {
-            cutPassword()
-            validateCutPassword()
-        } 
-        if ($inputCharacters.includes($symbols) && contra[a].some(item => !arrSymbols.includes(item))) {
-            cutPassword()
-            validateCutPassword()
-        }
-    }
-    return contra
+    validatePassword($arrInputCharacters, arrOfData)
+    const randomIndex = Math.floor(Math.random() * password.length)
+    password = password.slice(randomIndex, inputLength)
+    if (password.length < inputLength) cutPassword()
+    return password
 }
 
+let finalPassword
+const shufflePassword = () => {
+    cutPassword()
+    finalPassword = cutPassword()
+    for (let i = finalPassword.length - 1; i > 0; i--) {
+        const random = Math.floor(Math.random() * (i + 1));
+        [finalPassword[i], finalPassword[random]] = [finalPassword[random], finalPassword[i]];
+    }
+    return finalPassword = finalPassword.join("")
+}
 
 // EVENTS
 
@@ -168,12 +121,17 @@ for (const input of $arrInputLength) {
 for (const input of $arrInputRules) {
     input.addEventListener("click", () => {
         rulesFunction()
-        charactersFunction()
     })
 }
 
-for (const arr of $arrInputCharacters) {
-    arr.addEventListener("click", () => {
-        charactersFunction()
+for (const input of $btn) {
+    input.addEventListener("click", () => {
+        shufflePassword()
+        $("p").innerText = finalPassword
     })
 }
+
+$copyBtn.addEventListener("click", () => {
+    let textToCopy = finalPassword
+    navigator.clipboard.writeText(textToCopy)
+})
