@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.5;
     cursor: default;
@@ -10,24 +9,25 @@
 body {
     max-width: 100%;
     width: 100%;
+    height: 100vh;
+}
+
+.main-container {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-image: url(../images/pawel-czerwinski-2PN18U8CKi0-unsplash.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
-.main-container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 .password-container, .form-container {
     background-color: white;
-    max-width: 50%;
+    max-width: 70%;
     width: 100%;
     margin: 20px;
     padding: 16px;
@@ -39,7 +39,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 50px;
 }
 
 .password-container .password {
@@ -64,6 +64,10 @@ body {
     font-size: 2rem;
     cursor: pointer;
     margin-right: 16px;
+}
+
+.password-container .icon i:hover {
+    color: #FF7171;
 }
 
 .form-container {
@@ -100,6 +104,15 @@ body {
     color: #FF7171;
 }
 
+.form-container h3 #error {
+    color: red;
+}
+
+.form-container h3 .error-icon-hidden {
+    visibility: hidden;
+    color: red;
+}
+
 .form-container label {
     display: flex;
     align-items: center;
@@ -112,7 +125,7 @@ body {
     margin: 0 5px;
 }
 
-.generate-btn {
+#generate-btn {
     max-width: 150px;
     width: 100%;
     padding: 8px 0;
@@ -124,11 +137,103 @@ body {
     cursor: pointer;
     border: none;
     border-radius: 30px;
-    transition: 0.2s;
+    transition: 0.1s;
 }
 
-.generate-btn:hover {
+#generate-btn:hover {
     background-color: #FF7171;
     color: white;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+@media (max-width: 1000px) and (orientation: landscape) {
+    body {
+        height: unset;
+    }
+}
+
+@media (max-width: 900px) {
+    .password-container, .form-container {
+        max-width: 80%;
+    }
+
+    .password-container .password, .password-container .icon i {
+        font-size: 1.5rem;
+    }
+
+    .form-container form {
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .form-container form .input-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .form-container h2 {
+        text-align: start;
+        display: inline;
+        font-size: 1.5rem;
+    }
+
+    .form-container h3 {
+        text-align: start;
+        display: inline;
+    }
+
+    .form-container label {
+        flex-wrap: nowrap;
+        margin-right: 5px;
+    }
+
+    .form-container label input {
+        display: block;
+    }
+}
+
+@media (max-width: 700px) {
+    .main-container {
+        height: 100%;
+    }
+
+    .password-container .password {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .password-container .password {
+        max-width: 100%;
+        text-align: center;
+        font-size: 1.4rem;
+    }
+
+    .password-container {
+        display: unset;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .password-container .icon {
+        justify-content: center;
+        max-width: unset;
+    }
+
+    .password-container .icon i {
+        display: inline-block;
+        margin-top: 2px;
+        margin-right: 0;
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 380px) {
+    body {
+        height: unset;
+    }
+
+    .password-container .password {
+        font-size: 1.2rem;
+    }
 }

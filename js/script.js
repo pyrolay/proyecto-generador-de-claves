@@ -5,18 +5,22 @@ const $$ = (selector) => document.querySelectorAll(selector)
 const arrLettersLowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 const arrLettersUppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 const arrNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-const arrSymbols = ["~", '"', "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "=", "{", "[", "}", "]", "|", ":", ";", "<", ",", ">", ".", "?", "/"]
+const arrSymbols = ['"', "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "=", "{", "[", "}", "]", "|", ":", ";", "<", ",", ">", ".", "?", "/"]
 
 // VARIABLES
+const arrOfData = [arrLettersUppercase, arrLettersLowercase, arrNumbers, arrSymbols]
+
 const $arrInputLength = [$("#sixteen-characters"), $("#twelve-characters"), $("#eight-characters")]
 const $arrInputRules = [$("#only-letters"), $("#only-numbers"), $("#all-characters")]
+const $arrInputCharacters = [$("#uppercase"), $("#lowercase"), $("#numbers"), $("#symbols")]
 
 const $uppercase = $("#uppercase")
 const $lowercase = $("#lowercase")
 const $numbers = $("#numbers")
 const $symbols = $("#symbols")
 
-const $btn = [$(".generate-btn"), $("#refresh-btn")]
+const $error = $("#error")
+const $btn = [$("#generate-btn"), $("#refresh-btn")]
 const $copyBtn = $("#copy-btn")
 
 
@@ -76,16 +80,14 @@ const randomPassword = () => {
     return password
 }
 
-const arrOfData = [arrLettersUppercase, arrLettersLowercase, arrNumbers, arrSymbols]
-const $arrInputCharacters = [$("#uppercase"), $("#lowercase"), $("#numbers"), $("#symbols")]
-
 const validatePassword = (checked, array) => {
     let filterPassword = randomPassword()
-    for (const index in $arrInputCharacters)
-    if (!checked[index].checked) {
-        filterPassword = filterPassword.filter((item) => {
-            return !array[index].includes(item)
-        })
+    for (const index in $arrInputCharacters) {
+        if (!checked[index].checked) {
+            filterPassword = filterPassword.filter((item) => {
+                return !array[index].includes(item)
+            })
+        }
     }
     return password = filterPassword
 }
@@ -95,7 +97,7 @@ const cutPassword = () => {
     validatePassword($arrInputCharacters, arrOfData)
     const randomIndex = Math.floor(Math.random() * password.length)
     password = password.slice(randomIndex, inputLength)
-    if (password.length < inputLength) cutPassword()
+    if (password.length < inputLength) cutPassword() 
     return password
 }
 
@@ -108,6 +110,20 @@ const shufflePassword = () => {
         [finalPassword[i], finalPassword[random]] = [finalPassword[random], finalPassword[i]];
     }
     return finalPassword = finalPassword.join("")
+}
+
+const validateError = () => {
+    const checked = []
+    for (const input of $arrInputCharacters) {
+        if (input.checked) checked.push($arrInputCharacters[input])
+    }
+    if (checked.length === 0) {
+        $error.classList.remove("error-icon-hidden")
+        return false
+    } else {
+        $error.classList.add("error-icon-hidden")
+        return true
+    }
 }
 
 // EVENTS
@@ -126,8 +142,12 @@ for (const input of $arrInputRules) {
 
 for (const input of $btn) {
     input.addEventListener("click", () => {
-        shufflePassword()
-        $("p").innerText = finalPassword
+        if (validateError()) {
+            shufflePassword()
+            $("p").innerText = finalPassword
+        } else {
+            $("p").innerText = ""
+        }
     })
 }
 
