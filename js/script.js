@@ -66,44 +66,42 @@ const rulesFunction = () => {
 rulesFunction()
 
 const randomPassword = () => {
-    let password = []
+    let randomPassword = []
     for (i = 0; i < 25; i++) {
             const uppercase = Math.floor(Math.random() * arrLettersUppercase.length)
-            password.push(arrLettersUppercase[uppercase])
+            randomPassword.push(arrLettersUppercase[uppercase])
             const lowercase = Math.floor(Math.random() * arrLettersLowercase.length)
-            password.push(arrLettersLowercase[lowercase])
+            randomPassword.push(arrLettersLowercase[lowercase])
             const digit = Math.floor(Math.random() * arrNumbers.length)
-            password.push(arrNumbers[digit])
+            randomPassword.push(arrNumbers[digit])
             const symbol = Math.floor(Math.random() * arrSymbols.length)
-            password.push(arrSymbols[symbol])
+            randomPassword.push(arrSymbols[symbol])
     }
-    return password
-}
-
-const validatePassword = (checked, array) => {
-    let filterPassword = randomPassword()
-    for (const index in $arrInputCharacters) {
-        if (!checked[index].checked) {
-            filterPassword = filterPassword.filter((item) => {
-                return !array[index].includes(item)
-            })
-        }
-    }
-    return password = filterPassword
+    return randomPassword
 }
 
 let password
+const validatePassword = () => {
+    let filterPassword = randomPassword()
+    for (const index in $arrInputCharacters) {
+        if (!$arrInputCharacters[index].checked) {
+            filterPassword = filterPassword.filter((item) => {
+                return !arrOfData[index].includes(item)
+            })
+        }
+    }
+    password = filterPassword
+    return password
+}
+
 const cutPassword = () => {
-    validatePassword($arrInputCharacters, arrOfData)
-    const randomIndex = Math.floor(Math.random() * password.length)
-    password = password.slice(randomIndex, inputLength)
-    if (password.length < inputLength) cutPassword() 
+    validatePassword()
+    password = password.slice(0, inputLength)
     return password
 }
 
 let finalPassword
 const shufflePassword = () => {
-    cutPassword()
     finalPassword = cutPassword()
     for (let i = finalPassword.length - 1; i > 0; i--) {
         const random = Math.floor(Math.random() * (i + 1));
@@ -119,6 +117,7 @@ const validateError = () => {
     }
     if (checked.length === 0) {
         $error.classList.remove("error-icon-hidden")
+        alert('Por favor, marque las características que desea en el apartado de "Carácteres".')
         return false
     } else {
         $error.classList.add("error-icon-hidden")
@@ -146,7 +145,7 @@ for (const input of $btn) {
             shufflePassword()
             $("p").innerText = finalPassword
         } else {
-            $("p").innerText = ""
+            $("p").innerText = "Genera!"
         }
     })
 }
